@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link rel="apple-touch-icon" href="grafik/touch57x57.png" />
+	<link rel="stylesheet" href="onsen2.11.2/css/onsenui.min.css">
+	<link rel="stylesheet" href="onsen2.11.2/css/onsen-css-components.min.css">
+	<script src="onsen2.11.2/js/onsenui.min.js"></script>
+	<title>OS-Quiz</title>
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<style>
+		/* h1 {
+			animation: textwelle 1.5s;
+		}
+
+		#startname {
+			animation: textwelle 2.5s;
+		}
+
+		#buttonstart {
+			animation: textwelle 3.5s;
+		}
+
+
+		@keyframes textwelle {
+			0% {
+				transform: scale(0.1);
+				opacity: 0;
+			}
+
+			100% {
+				transform: scale(1);
+				opacity: 1;
+			}
+		} */
+	</style>
+</head>
+
+<body>
+	<ons-navigator animation="slide" page="home" id="navigator"></ons-navigator>
+<!-- 
+	<template id="welcome">
+		<ons-page>
+			<div class="card">
+				<h1 class="card__title" style="text-align:center; margin-top: 30%;">Willkommen beim <br />Beispiel-Quiz
+				</h1>
+
+				<div id="startname" style="text-align:center; margin-top: 40%;"><span>Name: </span><input
+						class="text-input text-input--material" id="inputlogin" type="text" required></input></div>
+
+				<div id="buttonstart" style="text-align:center; margin-top: 40%; margin-bottom: 40%;">
+					<button class="button" onclick="home()">Anmelden</button>
+				</div>
+			</div>
+		</ons-page>
+	</template> -->
+
+	<!-- Jedes Template Bildet eine eigene Seite der App ab -->
+	<template id="home">
+		<ons-page>
+
+			<ons-toolbar class="toolbar">
+				<div class="left toolbar__left" style="margin-left: 15px;"><span id="hallo1"></span>
+					<script>document.getElementById("hallo1").innerHTML = name;</script></span>
+				</div>
+
+				<div class="right toolbar__right" style="margin-right: 15px;">Quiz-App</div>
+			</ons-toolbar>
+
+
+			<div style="margin-bottom:45px">
+
+				<div class="card">
+					<h2 class="card__title" style="text-align:center">Willkommen beim <br />Beispiel-Quiz</h2>
+				</div>
+
+				<img src="grafik/code.jpg" width="100%" />
+
+				<div class="card" style="text-align:center">
+					<div class="card__content">Bilde dich weiter und lerne mehr über<br> Datenschutz oder Security
+						Awareness</div>
+				</div>
+
+
+				<div style="text-align:center">
+					<button class="button" style="margin: 10px" onclick="naechsteFrage(1)">Datenschutz</button>
+					<button class="button" style="margin: 10px" onclick="naechsteFrage(5)">Security Aw.</button>
+				</div>
+
+			</div>
+
+			<div style="position: fixed; width: 100%; bottom: 0;">
+				<div class="tabbar">
+					<label class="tabbar__item">
+						<input type="radio" name="tabbar-a" checked="checked">
+						<button class="tabbar__button">
+							<i class="tabbar__icon ion-ios-home"></i>
+							<div class="tabbar__label">Home</div>
+						</button>
+					</label>
+
+					<label class="tabbar__item">
+						<input type="radio" name="tabbar-a" onclick="rangliste()">
+						<button class="tabbar__button">
+							<i class="tabbar__icon ion-ios-infinite"></i>
+							<div class="tabbar__label">Rangliste</div>
+						</button>
+					</label>
+
+					<label class="tabbar__item">
+						<input type="radio" name="tabbar-a" onclick="einstellungen()">
+						<button class="tabbar__button">
+							<i class="tabbar__icon ion-ios-settings"></i>
+							<div class="tabbar__label">Einstellungen</div>
+						</button>
+					</label>
+				</div>
+			</div>
+
+		</ons-page>
+
+	</template>
+
+
+	<template id="frage1">
+		<ons-page>
+			<ons-toolbar class="toolbar">
+				<div class="left toolbar__left" style="margin-left: 15px;">
+					<script>document.getElementById("name2").innerHTML = name;</script><span id="name2"></span>
+				</div>
+				<div class="right toolbar__right" style="margin-right: 15px;"><b>Punkte:</b>
+					<script>document.getElementById("punkte1").innerHTML = punktestand;</script><span><b id="punkte1"
+							class="counterPunkte">0</b></span>
+				</div>
+
+
+			</ons-toolbar>
+
+			<div>
+				<ons-progress-bar value="20"></ons-progress-bar>
+				<div class="card">
+					<h2 class="card__title">Frage Nr. 1</h2>
+					<div class="card__content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+						eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+						sed diam voluptua.
+					</div>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortrichtig(1)">Antwort 1</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortfalsch(2)">Antwort 2</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortfalsch(3)">Antwort 3</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortfalsch(4)">Antwort 4</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button button--outline weiterbutton" style="width: 95%; display: none;"
+						onclick="naechsteFrage(2)">Nächste Frage</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<h3 class="punktebonus"></h3>
+				</div>
+				<div style='text-align:center;margin-bottom:10px'>
+					<h3 class="antwortText"></h3>
+				</div>
+			</div>
+		</ons-page>
+	</template>
+
+
+	<template id="frage2">
+		<ons-page>
+			<ons-toolbar class="toolbar">
+				<div class="left toolbar__left" style="margin-left: 15px;">
+					<script>document.getElementById("name3").innerHTML = name;</script><span id="name3"></span>
+				</div>
+
+				<div class="right toolbar__right" style="margin-right: 15px;"><b>Punkte:</b>
+					<script>document.getElementById("punkte2").innerHTML = punktestand;</script><span><b id="punkte2"
+							class="counterPunkte">0</b></span>
+				</div>
+			</ons-toolbar>
+
+			<div>
+				<ons-progress-bar value="40"></ons-progress-bar>
+				<div class="card">
+					<h2 class="card__title">Frage Nr. 2</h2>
+					<div class="card__content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+						eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+						sed diam voluptua.
+					</div>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortfalsch(5)">Antwort 1</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortfalsch(6)">Antwort 2</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortrichtig(7)">Antwort 3</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortfalsch(8)">Antwort 4</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button button--outline weiterbutton" style="width: 95%; display: none;"
+						onclick="naechsteFrage(3)">Nächste Frage</button>
+				</div>
+				<div style='text-align:center;margin-bottom:10px'>
+					<h3 class="punktebonus"></h3>
+				</div>
+				<div style='text-align:center;margin-bottom:10px'>
+					<h3 class="antwortText"></h3>
+				</div>
+
+
+			</div>
+		</ons-page>
+	</template>
+
+
+	<template id="frage3">
+		<ons-page>
+			<ons-toolbar class="toolbar">
+				<div class="left toolbar__left" style="margin-left: 15px;">
+					<script>document.getElementById("name4").innerHTML = name;</script><span id="name4"></span>
+				</div>
+
+				<div class="right toolbar__right" style="margin-right: 15px;"><b>Punkte:</b>
+					<script>document.getElementById("punkte3").innerHTML = punktestand;</script><span><b id="punkte3"
+							class="counterPunkte">0</b></span>
+				</div>
+			</ons-toolbar>
+
+			<div>
+				<ons-progress-bar value="60"></ons-progress-bar>
+				<div class="card">
+					<h2 class="card__title">Frage Nr. 3</h2>
+					<div class="card__content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+						eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+						sed diam voluptua.
+					</div>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortfalsch(9)">Antwort 1</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortfalsch(10)">Antwort 2</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortrichtig(11)">Antwort 3</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortfalsch(12)">Antwort 4</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button button--outline weiterbutton" style="width: 95%; display: none;"
+						onclick="naechsteFrage(4)">Nächste Frage</button>
+				</div>
+				<div style='text-align:center;margin-bottom:10px'>
+					<h3 class="punktebonus"></h3>
+				</div>
+				<div style='text-align:center;margin-bottom:10px'>
+					<h3 class="antwortText"></h3>
+				</div>
+
+
+			</div>
+		</ons-page>
+	</template>
+
+	<template id="frage4">
+		<ons-page>
+			<ons-toolbar class="toolbar">
+				<div class="left toolbar__left" style="margin-left: 15px;">
+					<script>document.getElementById("name5").innerHTML = name;</script><span id="name5"></span>
+				</div>
+
+				<div class="right toolbar__right" style="margin-right: 15px;"><b>Punkte:</b>
+					<script>document.getElementById("punkte4").innerHTML = punktestand;</script><span><b id="punkte4"
+							class="counterPunkte">0</b></span>
+				</div>
+			</ons-toolbar>
+
+			<div>
+				<ons-progress-bar value="80"></ons-progress-bar>
+				<div class="card">
+					<h2 class="card__title">Frage Nr. 4</h2>
+					<div class="card__content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+						eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+						sed diam voluptua.
+					</div>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortfalsch(13)">Antwort 1</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortfalsch(14)">Antwort 2</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortrichtig(15)">Antwort 3</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button frage1" style="width: 95%" onclick="antwortfalsch(16)">Antwort 4</button>
+				</div>
+
+				<div style='text-align:center;margin-bottom:10px'>
+					<button class="button button--outline weiterbutton" style="width: 95%; display: none;"
+						onclick="location.reload();">Nächste Frage</button>
+				</div>
+				<div style='text-align:center;margin-bottom:10px'>
+					<h3 class="punktebonus"></h3>
+				</div>
+				<div style='text-align:center;margin-bottom:10px'>
+					<h3 class="antwortText"></h3>
+				</div>
+
+			</div>
+		</ons-page>
+	</template>
+
+
+<template id="frage5">
+	<ons-page>
+		<ons-toolbar class="toolbar">
+			<div class="left toolbar__left" style="margin-left: 15px;">
+				<script>document.getElementById("name6").innerHTML = name;</script><span id="name6"></span>
+			</div>
+
+			<div class="right toolbar__right" style="margin-right: 15px;"><b>Punkte:</b>
+				<script>document.getElementById("punkte5").innerHTML = punktestand;</script><span><b id="punkte5"
+						class="counterPunkte">0</b></span>
+			</div>
+		</ons-toolbar>
+
+		<div>
+			<ons-progress-bar value="20"></ons-progress-bar>
+			<div class="card">
+				<h2 class="card__title">Frage Nr. 1</h2>
+				<div class="card__content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+					eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+					sed diam voluptua.
+				</div>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortfalsch(1)">Antwort 1</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortfalsch(2)">Antwort 2</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortrichtig(3)">Antwort 3</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortfalsch(4)">Antwort 4</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button button--outline weiterbutton" style="width: 95%; display: none;"
+					onclick="naechsteFrage(6)">Nächste Frage</button>
+			</div>
+			<div style='text-align:center;margin-bottom:10px'>
+				<h3 class="punktebonus"></h3>
+			</div>
+			<div style='text-align:center;margin-bottom:10px'>
+				<h3 class="antwortText"></h3>
+			</div>
+
+
+		</div>
+	</ons-page>
+</template>
+
+
+<template id="frage6">
+	<ons-page>
+		<ons-toolbar class="toolbar">
+			<div class="left toolbar__left" style="margin-left: 15px;">
+				<script>document.getElementById("name7").innerHTML = name;</script><span id="name7"></span>
+			</div>
+
+			<div class="right toolbar__right" style="margin-right: 15px;"><b>Punkte:</b>
+				<script>document.getElementById("punkte6").innerHTML = punktestand;</script><span><b id="punkte6"
+						class="counterPunkte">0</b></span>
+			</div>
+		</ons-toolbar>
+
+		<div>
+			<ons-progress-bar value="50"></ons-progress-bar>
+			<div class="card">
+				<h2 class="card__title">Frage Nr. 2</h2>
+				<div class="card__content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+					eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+					sed diam voluptua.
+				</div>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortfalsch(5)">Antwort 1</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortfalsch(6)">Antwort 2</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortrichtig(7)">Antwort 3</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortfalsch(8)">Antwort 4</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button button--outline weiterbutton" style="width: 95%; display: none;"
+					onclick="naechsteFrage(7)">Nächste Frage</button>
+			</div>
+			<div style='text-align:center;margin-bottom:10px'>
+				<h3 class="punktebonus"></h3>
+			</div>
+			<div style='text-align:center;margin-bottom:10px'>
+				<h3 class="antwortText"></h3>
+			</div>
+
+
+		</div>
+	</ons-page>
+</template>
+
+<template id="frage7">
+	<ons-page>
+		<ons-toolbar class="toolbar">
+			<div class="left toolbar__left" style="margin-left: 15px;">
+				<script>document.getElementById("name8").innerHTML = name;</script><span id="name8"></span>
+			</div>
+
+			<div class="right toolbar__right" style="margin-right: 15px;"><b>Punkte:</b>
+				<script>document.getElementById("punkte7").innerHTML = punktestand;</script><span><b id="punkte7"
+						class="counterPunkte">0</b></span>
+			</div>
+		</ons-toolbar>
+
+		<div>
+			<ons-progress-bar value="70"></ons-progress-bar>
+			<div class="card">
+				<h2 class="card__title">Frage Nr. 3</h2>
+				<div class="card__content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+					eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+					sed diam voluptua.
+				</div>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortfalsch(9)">Antwort 1</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortfalsch(10)">Antwort 2</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortrichtig(11)">Antwort 3</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortfalsch(12)">Antwort 4</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button button--outline weiterbutton" style="width: 95%; display: none;"
+					onclick="naechsteFrage(8)">Nächste Frage</button>
+			</div>
+			<div style='text-align:center;margin-bottom:10px'>
+				<h3 class="punktebonus"></h3>
+			</div>
+			<div style='text-align:center;margin-bottom:10px'>
+				<h3 class="antwortText"></h3>
+			</div>
+
+
+		</div>
+	</ons-page>
+</template>
+
+<template id="frage8">
+	<ons-page>
+		<ons-toolbar class="toolbar">
+			<div class="left toolbar__left" style="margin-left: 15px;">
+				<script>document.getElementById("name9").innerHTML = name;</script><span id="name9"></span>
+			</div>
+
+			<div class="right toolbar__right" style="margin-right: 15px;"><b>Punkte:</b>
+				<script>document.getElementById("punkte8").innerHTML = punktestand;</script><span><b id="punkte8"
+						class="counterPunkte">0</b></span>
+			</div>
+		</ons-toolbar>
+
+		<div>
+			<ons-progress-bar value="90"></ons-progress-bar>
+			<div class="card">
+				<h2 class="card__title">Frage Nr. 4</h2>
+				<div class="card__content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+					eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+					sed diam voluptua.
+				</div>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortfalsch(13)">Antwort 1</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortfalsch(14)">Antwort 2</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortrichtig(15)">Antwort 3</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button frage1" style="width: 95%" onclick="antwortfalsch(16)">Antwort 4</button>
+			</div>
+
+			<div style='text-align:center;margin-bottom:10px'>
+				<button class="button button--outline weiterbutton" style="width: 95%; display: none;"
+					onclick="location.reload();">Nächste Frage</button>
+			</div>
+			<div style='text-align:center;margin-bottom:10px'>
+				<h3 class="punktebonus"></h3>
+			</div>
+			<div style='text-align:center;margin-bottom:10px'>
+				<h3 class="antwortText"></h3>
+			</div>
+
+
+		</div>
+	</ons-page>
+</template>
+
+
+	<template id="einstellungen">
+		<ons-page>
+			<div class="toolbar">
+				<div class="toolbar__center">Beispiel - Quiz</div>
+			</div>
+
+			<div>
+
+				<div class="card">
+					<h2 class="card__title">Einstellungen</h2>
+				</div>
+
+				<div class="card">
+					<div><input type="text" class="text-input text-input--underbar" placeholder="Dein Benutzername"
+							value="" id="spielername"></div>
+							<p id="validierung" style="color: red;"></p>
+				</div>
+
+				<div class="card">
+					<h4 class="card__title">Schwierigkeitsgrad</h4>
+					<label class="radio-button radio-button--material">
+						<input type="radio" class="radio-button__input radio-button--material__input" name="r"
+							checked="checked" value="1" id="checkbox_f">
+						<div class="radio-button__checkmark radio-button--material__checkmark"></div>
+						Level 1
+					</label>
+					<label class="radio-button radio-button--material">
+						<input type="radio" class="radio-button__input radio-button--material__input" name="r" value="2"
+							id="checkbox_m">
+						<div class="radio-button__checkmark radio-button--material__checkmark"></div>
+						Level 2
+					</label>
+					<label class="radio-button radio-button--material">
+						<input type="radio" class="radio-button__input radio-button--material__input" name="r" value="3"
+							id="checkbox_ka">
+						<div class="radio-button__checkmark radio-button--material__checkmark"></div>
+						Level 3
+					</label>
+				</div>
+
+				<div class="card">Land:<br />
+					<select class="select-input select-input--material" id="land">
+						<option>Deutschland</option>
+						<option>Österreich</option>
+						<option>Schweiz</option>
+					</select>
+				</div>
+
+				<div class="card">
+					<div><input type="text" class="text-input text-input--underbar" placeholder="Dein Alter" value=""
+							id="alter"></div>
+				</div>
+
+				<div class="card">
+					<button class="button button--outline" style="width: 95%"
+						onclick="speichereEinstellungen()">Speichern</button>
+
+				</div>
+
+			</div>
+			<div style="position: fixed; width: 100%; bottom: 0;">
+				<div class="tabbar">
+					<label class="tabbar__item">
+						<input type="radio" name="tabbar-a" checked="checked" onclick="location.reload();">
+						<button class="tabbar__button">
+							<i class="tabbar__icon ion-md-arrow-back"></i>
+							<div class="tabbar__label">Zurück</div>
+						</button>
+					</label>
+
+					
+
+				
+				</div>
+			</div>
+		</ons-page>
+	</template>
+
+
+	<template id="rangliste">
+		<ons-page>
+			<ons-toolbar class="toolbar">
+				<div class="left toolbar__left" style="margin-left: 15px;">
+					<script>document.getElementById("name7").innerHTML = name;</script><span id="name7"></span>
+				</div>
+
+			</ons-toolbar>
+
+
+
+			<div class="card">
+				<ons-list>
+					<ons-list-header style='text-align:center;'>
+						<h2>Highscore</h2>
+					</ons-list-header>
+
+					<ons-list-item>
+
+						<div class="left list-item__left">Hannes</div>
+						<div class="right list-item__right">Punkte: 550</div>
+
+
+					</ons-list-item>
+
+					<ons-list-item>
+						<div class="left list-item__left">Sophia2</div>
+						<div class="right list-item__right">Punkte: 350</div>
+					</ons-list-item>
+
+					<ons-list-item>
+						<div class="left list-item__left">Willi</div>
+						<div class="right list-item__right">Punkte: 250</div>
+					</ons-list-item>
+
+					<ons-list-item>
+						<div class="left list-item__left">User233</div>
+						<div class="right list-item__right">Punkte: 100</div>
+					</ons-list-item>
+					<div id="playerRangliste"></div>
+				</ons-list>
+			</div>
+
+
+
+			<div style="position: fixed; width: 100%; bottom: 0;">
+				<div class="tabbar">
+					<label class="tabbar__item">
+						<input type="radio" name="tabbar-a" onclick="location.reload();">
+						<button class="tabbar__button">
+							<i class="tabbar__icon ion-ios-home"></i>
+							<div class="tabbar__label">Home</div>
+						</button>
+					</label>
+
+					<label class="tabbar__item">
+						<input type="radio" name="tabbar-a" checked="checked">
+						<button class="tabbar__button">
+							<i class="tabbar__icon ion-ios-infinite"></i>
+							<div class="tabbar__label">Rangliste</div>
+						</button>
+					</label>
+
+					<label class="tabbar__item">
+						<input type="radio" name="tabbar-a" onclick="einstellungen()">
+						<button class="tabbar__button">
+							<i class="tabbar__icon ion-ios-settings"></i>
+							<div class="tabbar__label">Einstellungen</div>
+						</button>
+					</label>
+				</div>
+			</div>
+		</ons-page>
+	</template>
+
+</body>
+<script>
+
+	//Globale Variablen zu Spielerdaten
+	let name;
+	let punktestand = "";
+	let spielerAktuell = ["Spieler1", "1", "Deutschland", "23", 0];
+	let spielerData = [];
+	let spielername = "";
+	let schwierigkeitsgrad = "";
+	let spielerland = "";
+	let spieleralter = "";
+
+
+	if (localStorage.getItem("spielerAktuell") == null) {
+		localStorage.setItem("spielerAktuell", JSON.stringify(spielerAktuell))
+	}
+	let aktuellerSpieler = JSON.parse(localStorage.getItem("spielerAktuell"))
+
+	name = aktuellerSpieler[0];
+
+	//Funktionen
+
+	// Spieler werden im Local Storage gespeichert 
+	function speichereEinstellungen() {
+
+		spielername = document.getElementById("spielername").value;
+
+		if(spielername != ""){ //validierung, Spieler muss ein Benutzernamen eingeben 
+		schwierigkeitsgrad = document.querySelector('input[name="r"]:checked').value;
+		spielerland = document.getElementById("land").value;
+		spieleralter = document.getElementById("alter").value;
+
+		spielerData.push(spielername, schwierigkeitsgrad, spielerland, spieleralter, 0);
+		spielerAktuell.splice(0, 5, spielername, schwierigkeitsgrad, spielerland, spieleralter, 0);
+		//Spieler wird im Local Storage unter seinem Namen gespeichert 
+		localStorage.setItem(spielername, JSON.stringify(spielerData));
+		//Variable Spieler Aktuell wird auf den aktuell angemeldeten Spieler Überschrieben
+		localStorage.setItem("spielerAktuell", JSON.stringify(spielerAktuell))
+		location.reload();}
+		else{
+			document.getElementById("validierung").innerHTML = "Bitte Benutzername eingeben"
+		}
+	}
+	// Wechesl auf das Template "home"
+	function home() {
+
+		let nav = document.getElementById('navigator');
+		nav.pushPage("home");
+	}
+
+	// Wechesl auf das Template "ranglistee"
+	function rangliste() {
+
+		let nav = document.getElementById('navigator');
+		nav.pushPage("rangliste");
+		// Mit asyncCall() wird ein asynchroner Aufruf gestartet. Nötig da das Template der Rangliste erst geladen haben muss, bevor Werte oder Elemente verändert werden können.
+		asyncCall();
+	}
+
+	function resolveAfter2Seconds() {
+
+		return new Promise(resolve => {
+			setTimeout(() => {
+				resolve('resolved');
+			}, 10);
+		});
+	}
+
+	async function asyncCall() {
+
+		console.log('calling');
+		const result = await resolveAfter2Seconds();// Hier wird asynchron auf die Antwort der Funktion resolveAfter2Seconds() gewartet
+		let keys = Object.keys(localStorage);
+		// für jedes Element (Spieler) das im Local Storage gespeichert ist, wird ein neues Listenelement zur Ranglistentabelle hinzugefügt 
+		keys.forEach(function (key) {
+			var myId = document.getElementById(key);
+			console.log(myId);
+			if (key != "spielerAktuell" && myId == null) { // Variable spielerAktuell wird herausgefiltert und nicht in der Rangliste angezeigt
+
+				let player = JSON.parse(localStorage.getItem(key));
+
+				let para = document.createElement("ons-list-item");
+				para.setAttribute("id", key);
+				document.getElementById("playerRangliste").appendChild(para);
+
+				let div1 = document.createElement("div");
+				div1.setAttribute("class", "left list-item__left")
+				div1.innerText = key;
+				document.getElementById(key).appendChild(div1);
+
+				let div2 = document.createElement("div");
+				div2.setAttribute("class", "right list-item__right")
+				div2.innerHTML = "Punkte: " + player[4];
+				document.getElementById(key).appendChild(div2);
+
+			}
+		});
+
+	}
+
+	// Wechesl auf das Template "einstellungen"
+	function einstellungen() {
+		let nav = document.getElementById('navigator');
+		nav.pushPage("einstellungen");
+	}
+
+	// Anzeigen des Buttons "Weiter", nachdem eine Frage beantwortet wurde
+	function myfunction() {
+
+		let collectionWeiter = document.getElementsByClassName("weiterbutton");
+
+		for (let i = 0; i < collectionWeiter.length; i++) {
+
+			collectionWeiter[i].setAttribute("style", "width: 95%; display: inline;");
+
+		}
+	}
+
+	//Funktionsaufruf bei richtiger Antwort
+	function antwortrichtig(count) {
+
+		let collection = document.getElementsByClassName("frage1");
+		console.log(collection);
+		for (let i = 0; i < collection.length; i++) {
+
+			if (i == count - 1) {
+
+				collection[i].setAttribute("style", "background-color: green; width: 95%;");
+			} else {
+				collection[i].setAttribute("disabled", "true");
+			}
+		}
+		myfunction();
+
+		zähler100(50);
+		let collectionWeiter = document.getElementsByClassName("punktebonus");
+
+		for (let i = 0; i < collectionWeiter.length; i++) {
+
+			collectionWeiter[i].innerHTML = "Yeah! Richtige Antwort<br> + Punkte: 50";
+
+		}
+	}
+
+	//Funktionsaufruf bei falscher Antwort
+	function antwortfalsch(count) {
+
+		let collection = document.getElementsByClassName("frage1");
+
+		for (let i = 0; i < collection.length; i++) {
+
+			if (i == count - 1) {
+
+				collection[i].setAttribute("style", "background-color: red; width: 95%;");
+			} else {
+				collection[i].setAttribute("disabled", "true");
+			}
+
+		}
+		myfunction();
+		let collectionWeiter = document.getElementsByClassName("antwortText");
+
+		for (let i = 0; i < collectionWeiter.length; i++) {
+
+			collectionWeiter[i].innerHTML = "Kopf hoch, beim nächsten <br>mal schaffst du es!";
+
+		}
+	}
+
+	// Wechesl auf das Template zur nächsten Frage
+	function naechsteFrage(pageNumber) {
+		let punkteAnzeige = JSON.parse(localStorage.getItem("spielerAktuell"));
+		let punkteAnSpieler = JSON.parse(localStorage.getItem(punkteAnzeige[0]));
+		if (punkteAnSpieler != null) {
+			punktestand = punkteAnSpieler[4];
+		}
+		let nav = document.getElementById('navigator');
+		nav.pushPage("frage" + pageNumber);
+	}
+
+	//asynchrone Funktion zur Anzeige des Punktestandes 
+	async function zähler100(points) {
+
+		let collectionPunkte = document.getElementsByClassName("counterPunkte");
+		let punktevergabeAn = JSON.parse(localStorage.getItem("spielerAktuell"));
+		let punkteAnSpieler = JSON.parse(localStorage.getItem(punktevergabeAn[0]));
+		if (punkteAnSpieler == null) {
+			punkteAnSpieler = JSON.parse(localStorage.getItem("spielerAktuell"));
+		}
+		let punktestandNeu = punkteAnSpieler[4] + points;
+
+		for (i = punkteAnSpieler[4]; i <= punktestandNeu; i++) {
+			await delay(1);
+			collectionPunkte[collectionPunkte.length - 1].innerHTML = i;
+		}
+		punkteAnSpieler[4] = punktestandNeu;
+		punktestand = punktestandNeu;
+		punkteAnSpieler.splice(4, 1, punkteAnSpieler[4]);
+		localStorage.setItem(punktevergabeAn[0], JSON.stringify(punkteAnSpieler));
+	}
+
+	function delay(n) {
+
+		return new Promise(function (resolve) {
+			setTimeout(resolve, n * 8);
+		});
+	}
+
+</script>
+
+</html>
